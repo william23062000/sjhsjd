@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>¿Quieres ser mi novia?</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      background-color: white;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    #bear {
+      width: 200px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 2em;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    .button-container {
+      margin-top: 20px;
+    }
+
+    button {
+      font-size: 20px;
+      padding: 10px 20px;
+      margin: 10px;
+      cursor: pointer;
+      border-radius: 10px;
+      border: none;
+      transition: all 0.3s ease;
+    }
+
+    #yes {
+      background-color: #ff69b4;
+      color: white;
+    }
+
+    #no {
+      background-color: #ccc;
+    }
+
+    .heart {
+      position: fixed;
+      top: -50px;
+      font-size: 24px;
+      color: red;
+      animation: fall 3s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <img id="bear" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD…[aquí irá el base64 completo de la imagen]" alt="Snoopy tierno" />
+    <h1 id="question">¿Quieres ser mi novia?</h1>
+
+    <div class="button-container">
+      <button id="yes">Sí</button>
+      <button id="no">No</button>
+    </div>
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById("yes");
+    const noBtn = document.getElementById("no");
+    const question = document.getElementById("question");
+
+    const noTexts = [
+      "¿Seguro que no?",
+      "¿De verdad no?",
+      "¿Ni un poquito?",
+      "¿Estás segura?",
+      "Piénsalo bien...",
+      "¿Y si te arrepientes?"
+    ];
+
+    let yesFontSize = 20;
+
+    noBtn.addEventListener("click", () => {
+      yesFontSize += 20;
+      yesBtn.style.fontSize = yesFontSize + "px";
+      const randomIndex = Math.floor(Math.random() * noTexts.length);
+      noBtn.textContent = noTexts[randomIndex];
+    });
+
+    yesBtn.addEventListener("click", () => {
+      document.body.innerHTML = `
+        <div class="container">
+          <img id="bear" src="data:image/jpeg;base64,[base64_aquí]" alt="Snoopy tierno" />
+          <h1 style="font-size:2.5em; color:#ff69b4;">¡Sabía que dirías que sí <3</h1>
+        </div>
+      `;
+
+      for (let i = 0; i < 100; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = Math.random() * 20 + 15 + "px";
+        heart.textContent = "❤";
+        heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        }, 5000);
+      }
+    });
+  </script>
+</body>
+</html>
